@@ -1,10 +1,15 @@
 import Letterbox from "./LetterBox.js";
 
-export default function ExpectedWord({ letterCount }) {
+export default function ExpectedWord({ letterCount, enteredValue }) {
+  const letterArray = enteredValue
+    ? Array(letterCount)
+        .fill("")
+        .map((_, index) => enteredValue[index] || "")
+    : Array(letterCount).fill("");
   return (
     <div className="expected-word">
-      {[...Array(letterCount)].map((_, index) => (
-        <Letterbox key={index} />
+      {letterArray.map((letter, index) => (
+        <Letterbox key={index} value={letter} />
       ))}
     </div>
   );
