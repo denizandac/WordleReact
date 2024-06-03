@@ -1,6 +1,7 @@
+import { act } from "react";
 import Letterbox from "./LetterBox.js";
 
-export default function ExpectedWord({ letterCount, enteredValue }) {
+export default function ExpectedWord({ letterCount, enteredValue, mode }) {
   const letterArray = enteredValue
     ? Array(letterCount)
         .fill("")
@@ -9,7 +10,11 @@ export default function ExpectedWord({ letterCount, enteredValue }) {
   return (
     <div className="expected-word">
       {letterArray.map((letter, index) => (
-        <Letterbox key={index} value={letter} />
+        <Letterbox
+          key={index}
+          value={mode === "active" ? letter : letter.letter}
+          isIncluded={mode === "inactive" ? letter.type : undefined}
+        />
       ))}
     </div>
   );
