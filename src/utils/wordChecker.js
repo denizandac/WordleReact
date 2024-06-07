@@ -1,14 +1,19 @@
-export function EligibilityChecker(word, letterCount, dictionary) {
+const dictionary = require("sozlukjs");
+const randomWordGenerator = require("rastgelekelime");
+
+export async function EligibilityChecker(word, letterCount) {
+  const response = await dictionary.TDKDictionary.getMeaningData(word);
   if (word.length < letterCount) {
     return false;
+  } else if (response.error) {
+    console.log(response.error);
+    //Shake the screen
+    return false;
   }
-  //  else if (!dictionary.includes(word)) {
-  //   return false;
-  // }
+  console.log(response[0].madde.toUpperCase());
   return true;
 }
 export function LetterChecker(word, expectedWord) {
-  let letterCount = 0;
   let newWord = [];
   for (let i = 0; i < word.length; i++) {
     newWord.push({ letter: word[i], type: "none" });
@@ -16,10 +21,18 @@ export function LetterChecker(word, expectedWord) {
       if (word[i] === expectedWord[j]) {
         if (i === j) newWord[i].type = "exactPosition";
         else newWord[i].type = "includes";
-        letterCount++;
         break;
       }
     }
   }
   return newWord;
+}
+
+export function GenerateRandomWord() {
+  const randomWord = randomWordGenerator(1);
+  //console.log(randomWord);
+  if (randomWord[0].length === 5) {
+    return randomWord[0].toUpperCase();
+  }
+  return GenerateRandomWord();
 }
