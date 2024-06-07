@@ -11,7 +11,7 @@ export default function LetterBox({ value, isIncluded }) {
             : "white",
       }}
     >
-      <input type="text" maxLength="1" disabled value={value} />
+      <input type="text" maxLength="1" disabled value={value || ""} />
     </div>
   );
 }

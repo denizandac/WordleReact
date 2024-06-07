@@ -1,27 +1,29 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ExpectedWord from "./ExpectedWord";
 import { EligibilityChecker, LetterChecker } from "../utils/WordChecker";
-
-//const dictionary = ["HELLO", "WORLD", "REACT"];
-//import from english dictionary API
+import { WordContext } from "../store/word-context";
 
 export default function Words({ guessCount, letterCount }) {
   const [word, setWord] = useState("");
   const [guessIndex, setGuessIndex] = useState(0);
   const [guessedWords, setGuessedWords] = useState(Array(guessCount).fill(""));
+  const [expectedWord, setExpectedWord] = useState("BEYZA");
+
+  const wordContext = useContext(WordContext);
 
   const handleKeyChange = ({ key }) => {
     if (key === "Backspace") {
       setWord((prevWord) => prevWord.slice(0, -1));
     } else if (key === "Enter") {
-      if (!EligibilityChecker(word, letterCount, "dictionary")) {
+      if (!EligibilityChecker(word, letterCount)) {
         //shake the word
         return;
       } else if (guessIndex === guessCount) {
-        return;
+        wordContext.showModal();
         //game over modal shows up
+        return;
       }
-      const calculatedWord = LetterChecker(word, "BEYZA");
+      const calculatedWord = LetterChecker(word, expectedWord);
       setGuessedWords((prevGuessedWords) =>
         prevGuessedWords.map((prevGuessedWord, index) =>
           index === guessIndex ? calculatedWord : prevGuessedWord
@@ -49,7 +51,6 @@ export default function Words({ guessCount, letterCount }) {
           mode={index === guessIndex ? "active" : "inactive"}
         />
       ))}
-      {word}
     </div>
   );
 }

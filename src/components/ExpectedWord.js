@@ -1,4 +1,3 @@
-import { act } from "react";
 import Letterbox from "./LetterBox.js";
 
 export default function ExpectedWord({ letterCount, enteredValue, mode }) {
