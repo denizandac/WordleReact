@@ -1,18 +1,33 @@
-import { createContext } from "react";
+import { useState, createContext } from "react";
 
 export const WordContext = createContext({
+  winCondition: false,
+  expectedWord: "BEYZA",
   setExpectedWord: () => {},
-  showModal: () => {},
+  modalRef: null,
+  setModalRef: () => {},
+  showEndModal: () => {},
 });
 
-export const WordContextProvider = ({ children }) => {
-  const setExpectedWord = () => {};
-  const logEndState = () => {
-    console.log("Game Over");
+export const WordProvider = (props) => {
+  const [expectedWord, setExpectedWord] = useState("BEYZA");
+  const [modalRef, setModalRef] = useState(null);
+  const showEndModal = () => {
+    modalRef.showModal();
   };
+
   return (
-    <WordContext.Provider value={{ setExpectedWord, showModal: logEndState }}>
-      {children}
+    <WordContext.Provider
+      value={{
+        winCondition: false,
+        expectedWord,
+        setExpectedWord,
+        modalRef,
+        setModalRef,
+        showEndModal,
+      }}
+    >
+      {props.children}
     </WordContext.Provider>
   );
 };
