@@ -19,8 +19,8 @@ export function LetterChecker(word, expectedWord) {
     newWord.push({ letter: word[i], type: "none" });
     for (let j = 0; j < expectedWord.length; j++) {
       if (word[i] === expectedWord[j]) {
+        if (i !== j) newWord[i].type = "includes";
         if (i === j) newWord[i].type = "exactPosition";
-        else newWord[i].type = "includes";
         break;
       }
     }
