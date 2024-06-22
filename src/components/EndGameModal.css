@@ -1,0 +1,18 @@
+.end-game-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  height: 30%;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+button {
+  display: flex;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin: 5px 30px;
+  padding: 5px 10px;
+}
