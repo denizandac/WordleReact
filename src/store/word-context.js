@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 
 export const WordContext = createContext({
   winCondition: false,
-  expectedWord: "BEYZA",
+  expectedWord: "REACT",
   setExpectedWord: () => {},
   modalRef: null,
   setModalRef: () => {},
@@ -10,7 +10,7 @@ export const WordContext = createContext({
 });
 
 export const WordProvider = (props) => {
-  const [expectedWord, setExpectedWord] = useState("BEYZA");
+  const [expectedWord, setExpectedWord] = useState("REACT");
   const [modalRef, setModalRef] = useState(null);
   const showEndModal = () => {
     modalRef.showModal();
